@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "131720506242",
+    "firebase_url": "https://pryk-dtbs-pppb1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pryk-dtbs-pppb1",
+    "storage_bucket": "pryk-dtbs-pppb1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131720506242:android:d73abc7851d92871a57d9b",
+        "android_client_info": {
+          "package_name": "com.example.pppb_uas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131720506242-shfhucgavqpvfjg8a9mju68ogch8hm7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ3D-mHDmbAFE41YhC53tqTAPQGshclW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131720506242-shfhucgavqpvfjg8a9mju68ogch8hm7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131720506242:android:60d1b6a70a106fe4a57d9b",
+        "android_client_info": {
+          "package_name": "com.example.pryk_tgs_pppb1_database1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131720506242-shfhucgavqpvfjg8a9mju68ogch8hm7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ3D-mHDmbAFE41YhC53tqTAPQGshclW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131720506242-shfhucgavqpvfjg8a9mju68ogch8hm7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

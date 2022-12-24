@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">pppb_uas</string>
+    <string name="contact_us">contact us</string>
+    <string name="welcome_to_greatify">Welcome to Greatify!</string>
+    <string name="greatify">Greatify!</string>
+    <string name="welcome_to">Welcome to </string>
+
+    <string name="overview_text1">an app to voice up your suggestions, complaint, and even critics to improve the government services.</string>
+    <string name="overview_text2">Every suggestions from you matters and will be directed to the government right away!</string>
+    <string name="overview_text3">You are safe to suggest, complaint, and sent criticism with intend to improve government services</string>
+    <string name="suggest_now">Suggest Now</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="voice_up">Voice up </string>
+    <string name="suggestions">Suggestions!</string>
+    <string name="above_all">Above All!!</string>
+    <string name="security">Security </string>
+    <string name="sign">Sign</string>
+    <string name="in">In</string>
+    <string name="auth_text1">Enter your registered credentials</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="do_not_have_an_account">do not have an account ?</string>
+    <string name="register_here">register here!</string>
+    <string name="wrong_credentials">Wrong Credentials!</string>
+    <string name="up">Up</string>
+    <string name="auth_text2">Register Your Credentials</string>
+    <string name="email">Email</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="greatify_app">Greatify</string>
+    <string name="all_data">All Data</string>
+    <string name="my_data">My Data</string>
+    <string name="delete">delete</string>
+    <string name="modify">modify</string>
+    <string name="title">title</string>
+    <string name="locations">locations</string>
+    <string name="data_complaint">data complaint</string>
+    <string name="modify1">Modify</string>
+    <string name="data">Data</string>
+    <string name="update_complaint_data">Update complaint data</string>
+    <string name="complaint_tittle">Complaint title</string>
+    <string name="complaint_descriptions">Complaint descriptions</string>
+    <string name="date">date</string>
+    <string name="place">Place</string>
+    <string name="update_data">Update Data</string>
+    <string name="successful_signin">Successful signin</string>
+    <string name="some_data_need_to_be_filled">Some data need to be filled</string>
+    <string name="delete_data">Delete Data ?</string>
+    <string name="this_action_cannot_be_reversed">This action cannot be reversed</string>
+    <string name="delete_data1">Delete Data</string>
+    <string name="cancel">Cancel</string>
+</resources>

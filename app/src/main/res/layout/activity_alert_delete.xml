@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="horizontal"
+    android:background="@drawable/al_rounded"
+    android:backgroundTint="@color/alertDanger"
+    android:gravity="center_horizontal"
+    android:elevation="30dp"
+    tools:context=".Views.Alert.AlertActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_iconAlert"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_delete_white"/>
+
+        <TextView
+            android:id="@+id/tv_alertText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:text="@string/delete_data"
+            android:textColor="@color/calmWhite"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_alertTextDescriptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:text="@string/this_action_cannot_be_reversed"
+            android:textColor="@color/calmWhite" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="@color/calmWhite"
+            android:background="@drawable/btn_rounded"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:textColor="@color/alertDanger"
+            android:textStyle="bold"
+            android:text="@string/delete_data1"/>
+
+        <Button
+            android:id="@+id/btn_cancelDelete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="@color/calmWhite"
+            android:background="@drawable/btn_rounded"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:textColor="@color/calmBlack"
+            android:textStyle="bold"
+            android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>

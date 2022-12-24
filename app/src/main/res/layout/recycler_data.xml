@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/calmWhite"
+    android:layout_marginBottom="20dp">
+
+    <LinearLayout
+        android:id="@+id/ll_headingData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_documentIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_documents"/>
+
+        <TextView
+            android:id="@+id/tv_dataOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_data"
+            android:textStyle="bold"
+            android:textColor="@color/calmBlack"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_deleteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_delete"/>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="@string/delete"
+            android:textStyle="bold"
+            android:textColor="@color/alertDanger"
+            android:textSize="12sp"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/iv_editIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_edit_data"/>
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="@string/modify"
+            android:textStyle="bold"
+            android:textColor="@color/alertSuccess"
+            android:textSize="12sp"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dataDescriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_headingData"
+        android:layout_marginTop="5dp"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_rounded">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/calmBlack"
+            android:text="@string/title"/>
+
+        <TextView
+            android:id="@+id/tv_locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/calmBlack"
+            android:text="@string/locations"/>
+
+        <TextView
+            android:id="@+id/tv_dataComplaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/calmBlack"
+            android:text="@string/data_complaint"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/calmBlack"
+            android:layout_gravity="end"
+            android:text="@string/date"/>
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_dataId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

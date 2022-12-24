@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_mainLayout"
+    android:layout_margin="40dp"
+    android:padding="20dp"
+    android:background="@drawable/bg_rounded"
+    android:elevation="30dp">
+
+    <LinearLayout
+        android:id="@+id/ll_signupHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:text="@string/sign"
+            android:textAlignment="center"
+            android:textColor="@color/calmBlack"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/up"
+            android:textAlignment="center"
+            android:textColor="@color/lightGreenBlue"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_signUpDescriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_signupHeader"
+        android:layout_marginBottom="40dp"
+        android:text="@string/auth_text2"
+        android:textAlignment="center"
+        android:textColor="@color/calmBlack"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/et_signUpUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_signUpDescriptions"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawableTint="@color/lightBlue"
+        android:drawablePadding="10dp"
+        android:background="@drawable/et_rounded"
+        android:textColorHint="@color/lightBlue"
+        android:textColor="@color/calmBlack"
+        android:textSize="16sp"
+        android:padding="20dp"
+        android:hint="@string/username"/>
+
+    <EditText
+        android:id="@+id/et_signUpEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_signUpUsername"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_mail"
+        android:drawablePadding="10dp"
+        android:background="@drawable/et_rounded"
+        android:textColorHint="@color/lightBlue"
+        android:textColor="@color/calmBlack"
+        android:textSize="16sp"
+        android:padding="20dp"
+        android:hint="@string/email"
+        android:elevation="30dp"/>
+
+    <EditText
+        android:id="@+id/et_signUpPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_signUpEmail"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawableRight="@drawable/ic_unseen"
+        android:drawablePadding="10dp"
+        android:background="@drawable/et_rounded"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/lightBlue"
+        android:textColor="@color/calmBlack"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/et_signUpRepeatPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_signUpPassword"
+        android:layout_marginBottom="40dp"
+        android:padding="20dp"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawablePadding="10dp"
+        android:background="@drawable/et_rounded"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/lightBlue"
+        android:textColor="@color/calmBlack"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btn_signup"
+        app:backgroundTint="@color/lightGreenBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_signUpRepeatPassword"
+        android:background="@drawable/btn_rounded"
+        android:textAllCaps="false"
+        android:text="@string/sign_up"
+        android:textColor="@color/calmWhite"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+</RelativeLayout>
