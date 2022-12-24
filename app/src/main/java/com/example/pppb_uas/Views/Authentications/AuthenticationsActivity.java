@@ -7,11 +7,16 @@ import static com.example.pppb_uas.Views.Overview.MainActivity.userPassword;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +37,7 @@ import android.widget.Toast;
 import com.example.pppb_uas.Model.UserData;
 import com.example.pppb_uas.R;
 import com.example.pppb_uas.Views.Dashboard.DashboardActivity;
+import com.example.pppb_uas.Views.Modify.ModifyActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +47,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AuthenticationsActivity extends AppCompatActivity {
+    EditText et_username, et_password;
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     SharedPreferences sessions;
 
@@ -58,16 +65,58 @@ public class AuthenticationsActivity extends AppCompatActivity {
         sessions = getSharedPreferences(sharedpreferences, Context.MODE_PRIVATE);
 
         // get sign in data
-        EditText et_username = findViewById(R.id.et_username);
-        EditText et_password = findViewById(R.id.et_password);
+        et_username = findViewById(R.id.et_username);
+        et_password = findViewById(R.id.et_password);
         TextView tv_registerUser = findViewById(R.id.tv_registerUser);
         Button btn_signin = findViewById(R.id.btn_signin);
 
         btn_signin.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 // check sign in data
-                verifyUserData(et_username.getText().toString(), et_password.getText().toString());
+                if (!"".equals(et_username.getText().toString()) && !"".equals(et_password.getText().toString())) {
+                    // verify sign in data
+                    verifyUserData(et_username.getText().toString(), et_password.getText().toString());
+                } else {
+                    // display alert using popup
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View PopUp = inflater.inflate(R.layout.activity_alert_warning, null);
+
+                    int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                    int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true;
+                    final PopupWindow popupWindow = new PopupWindow(PopUp, width, height, focusable);
+
+                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    PopUp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    // customize alert messages
+                    LinearLayout ll_mainLayout = findViewById(R.id.ll_mainLayout);
+                    TextView tv_alertText = PopUp.findViewById(R.id.tv_alertText);
+                    tv_alertText.setText("Some Field Are Not Properly Filled!");
+
+                    if (!"".equals(et_username.getText().toString())) {
+                        et_username.setBackgroundResource(R.drawable.et_rounded_warning);
+                        et_username.setHintTextColor(getResources().getColor(R.color.alertWarning));
+//                        et_username.setHintTextColor(getResources().getColor(R.color.alertWarning));
+                    } else if (!"".equals(et_password.getText().toString())) {
+                        et_password.setBackgroundResource(R.drawable.et_rounded_warning);
+                        et_password.setHintTextColor(getResources().getColor(R.color.alertWarning));
+//                        et_password.setHintTextColor(getResources().getColor(R.color.alertWarning));
+                    } else if ("".equals(et_username.getText().toString()) && "".equals(et_password.getText().toString())){
+                        et_username.setBackgroundResource(R.drawable.et_rounded_warning);
+                        et_password.setBackgroundResource(R.drawable.et_rounded_warning);
+//                        et_username.setHintTextColor(getResources().getColor(R.color.alertWarning));
+//                        et_password.setHintTextColor(getResources().getColor(R.color.alertWarning));
+                    }
+                }
+
             }
         });
 
@@ -121,6 +170,7 @@ public class AuthenticationsActivity extends AppCompatActivity {
 
                     }
                 });
+
 //                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 //                View signupPopUp = inflater.inflate(R.layout.activity_signup, null);
 //
@@ -177,6 +227,7 @@ public class AuthenticationsActivity extends AppCompatActivity {
 
     public void verifyUserData(String username, String password) {
         db.child("data_user").addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot item : snapshot.getChildren()) {
@@ -188,13 +239,42 @@ public class AuthenticationsActivity extends AppCompatActivity {
                         editorSession.putBoolean(String.valueOf(sessions_loggedIn), true);
                         editorSession.apply();
 
-                        startActivity(new Intent(AuthenticationsActivity.this, DashboardActivity.class));
+                        Intent redirect = new Intent(AuthenticationsActivity.this, DashboardActivity.class);
+                        redirect.putExtra("redirectStatus", "success");
+                        redirect.putExtra("redirectFrom", "signin");
+                        startActivity(redirect);
                         finish();
                     }
                 }
 
                 if (!sessions.getBoolean(String.valueOf(sessions_loggedIn), false)) {
-                    Toast.makeText(getApplicationContext(), "Wrong Login Credentials!", Toast.LENGTH_SHORT).show();
+                    // display alert using popup
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View PopUp = inflater.inflate(R.layout.activity_alert_danger, null);
+
+                    int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                    int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true;
+                    final PopupWindow popupWindow = new PopupWindow(PopUp, width, height, focusable);
+                    RelativeLayout view = new RelativeLayout(getApplicationContext());
+
+                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    PopUp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            popupWindow.dismiss();
+                        }
+                    });
+
+                    // customize alert messages
+                    LinearLayout ll_mainLayout = findViewById(R.id.ll_mainLayout);
+                    TextView tv_alertText = PopUp.findViewById(R.id.tv_alertText);
+                    tv_alertText.setText("Wrong Signin Credentials");
+
+                    et_username.setBackgroundResource(R.drawable.et_rounded_danger);
+                    et_password.setBackgroundResource(R.drawable.et_rounded_danger);
+//                    et_username.setHintTextColor(getResources().getColor(R.color.alertDanger));
+//                    et_password.setHintTextColor(getResources().getColor(R.color.alertDanger));
                 }
             }
 

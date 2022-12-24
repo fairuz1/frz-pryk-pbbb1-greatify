@@ -6,6 +6,9 @@ import static com.example.pppb_uas.Views.Overview.MainActivity.userLoggedIn;
 import static com.example.pppb_uas.Views.Overview.MainActivity.userPassword;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +28,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.pppb_uas.Model.ComplaintData;
 import com.example.pppb_uas.R;
@@ -41,6 +46,8 @@ import java.util.Map;
 public class ModifyActivity extends AppCompatActivity {
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     SharedPreferences sessions;
+    private static final int NOTIFICATION_ID = 0;
+    public String CHANNEL_ID = "0.0.0";
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +106,14 @@ public class ModifyActivity extends AppCompatActivity {
                     db.child("data_complaint").child(dataId).setValue(complaint).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(), "Successfuly added data!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ModifyActivity.this, DashboardActivity.class));
+                            // give notifications if succeed
+                            displayNotification("Data has been successfuly added!", "Adding Data");
+
+                            // redirect to dashboard
+                            Intent redirect = new Intent(ModifyActivity.this, DashboardActivity.class);
+                            redirect.putExtra("redirectStatus", "success");
+                            redirect.putExtra("redirectFrom", "addData");
+                            startActivity(redirect);
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -111,16 +124,22 @@ public class ModifyActivity extends AppCompatActivity {
                     });
                 } else if ("modifyData".equals(status)) {
                     Log.d("a", tv_dataId.getText().toString());
+
                     TextView tv_dataId = findViewById(R.id.tv_dataId);
                     String id = tv_dataId.getText().toString();
+
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("title", et_complaintTitle.getText().toString());
                     updateData.put("descriptions", et_complaintDescriptions.getText().toString());
                     updateData.put("dateHappened", et_complaintDate.getText().toString());
                     updateData.put("locationHappened", et_location.getText().toString());
-                    reference.child("data_complaint") .child(id).updateChildren(updateData);
-                    Toast.makeText(getApplicationContext(), "Successfully edited data!", Toast.LENGTH_SHORT).show();
+                    reference.child("data_complaint").child(id).updateChildren(updateData);
+
+                    // give notifications if succeed
+                    displayNotification("Data has been successfuly modified!", "Modifiy Data");
+
+                    // redirect to dashboard
                     startActivity(new Intent(ModifyActivity.this, DashboardActivity.class));
                     finish();
                 }
@@ -144,5 +163,34 @@ public class ModifyActivity extends AppCompatActivity {
         removeSessions.putString(userPassword, "password");
         removeSessions.putBoolean(String.valueOf(sessions_loggedIn), false);
         removeSessions.apply();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "My channel 1";
+            String description = "Channel for notification test";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void displayNotification(String messages, String title) {
+        int notificationId = 0;
+        Intent notificationIntent = new Intent(this, DashboardActivity.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        createNotificationChannel();
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_applogo)
+                .setContentText(messages)
+                .setContentTitle(title)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(notificationPendingIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(notificationId, notifyBuilder.build());
     }
 }

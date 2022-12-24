@@ -1,5 +1,4 @@
 package com.example.pppb_uas.Views.Dashboard;
-
 import static com.example.pppb_uas.Views.Overview.MainActivity.sessions_loggedIn;
 import static com.example.pppb_uas.Views.Overview.MainActivity.sharedpreferences;
 import static com.example.pppb_uas.Views.Overview.MainActivity.userLoggedIn;
@@ -10,23 +9,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pppb_uas.Model.ComplaintData;
 import com.example.pppb_uas.R;
-import com.example.pppb_uas.Views.Authentications.AuthenticationsActivity;
 import com.example.pppb_uas.Views.Modify.ModifyActivity;
 import com.example.pppb_uas.Views.Overview.MainActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +39,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -44,6 +46,7 @@ public class DashboardActivity extends AppCompatActivity {
     SharedPreferences sessions;
 
     public List<ComplaintData> complaintArray = new ArrayList<>();
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +56,59 @@ public class DashboardActivity extends AppCompatActivity {
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        // get sessions
+        // get sessions and intent
         sessions = getSharedPreferences(sharedpreferences, Context.MODE_PRIVATE);
+        Intent data = getIntent();
+        String from = data.getStringExtra("redirectFrom");
+        String statusRedirect = data.getStringExtra("redirectStatus");
+
+//        if ("addData".equals(from) && "success".equals(statusRedirect)) {
+//            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//            View PopUp = inflater.inflate(R.layout.activity_alert_success, null);
+//
+//            int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+//            int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+//            boolean focusable = true;
+//            final PopupWindow popupWindow = new PopupWindow(PopUp, width, height, focusable);
+//            RelativeLayout view = new RelativeLayout(this.getApplicationContext());
+//
+//            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+//            PopUp.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    popupWindow.dismiss();
+//                }
+//            });
+//
+//            LinearLayout ll_mainLayout = findViewById(R.id.ll_mainLayout);
+//            TextView tv_alertText = PopUp.findViewById(R.id.tv_alertText);
+//            tv_alertText.setText("Successfully Adedd new Suggestion Data");
+//
+//        } else if ("signin".equals(from) && "success".equals(statusRedirect)) {
+//            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//            View PopUp = inflater.inflate(R.layout.activity_alert_success, null);
+//
+//            int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+//            int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+//            boolean focusable = true;
+//            final PopupWindow popupWindow = new PopupWindow(DashboardActivity.this);
+//            RelativeLayout view = new RelativeLayout(this.getApplicationContext());
+//
+//            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+//            PopUp.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    popupWindow.dismiss();
+//                }
+//            });
+//
+//            LinearLayout ll_mainLayout = findViewById(R.id.ll_mainLayout);
+//            TextView tv_alertText = PopUp.findViewById(R.id.tv_alertText);
+//            tv_alertText.setText("Welcome back " + sessions.getString(userLoggedIn, "") + "!");
+//        }
 
         // get data
+        // display complaint data
         displayData();
 
         Button btn_user = findViewById(R.id.btn_user);
@@ -103,7 +155,9 @@ public class DashboardActivity extends AppCompatActivity {
 
                 for (DataSnapshot item : snapshot.getChildren()) {
                     ComplaintData data = item.getValue(ComplaintData.class);
-                    if (data != null) {
+                    if (data != null && sessions.getString(userLoggedIn, "").equals(data.getSender())) {
+                        complaintArray.add(0, data);
+                    } else if (data != null && !sessions.getString(userLoggedIn, "").equals(data.getSender())){
                         complaintArray.add(data);
                     } else {
                         Log.d("NULL", "NULL");

@@ -15,9 +15,11 @@
     android:backgroundTint="@color/blue"
     android:gravity="center_horizontal"
     android:elevation="30dp"
+    android:clickable="true"
     tools:context=".Views.Alert.AlertActivity">
 
     <LinearLayout
+        android:id="@+id/ll_secondaryLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
